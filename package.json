@@ -1,6 +1,6 @@
 {
   "name": "bare-process",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Node.js-compatible process control for Bare",
   "main": "index.js",
   "files": [
