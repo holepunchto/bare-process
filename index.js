@@ -108,4 +108,31 @@ class Process extends EventEmitter {
   }
 }
 
-module.exports = new Process()
+const process = module.exports = new Process()
+
+function forwardEvent (event, from = Bare, to = process) {
+  to
+    .on('newListener', (name) => {
+      if (name === event) {
+        if (to.listenerCount(event) === 0) {
+          from.on(event, onevent)
+        }
+      }
+    })
+    .on('removeListener', (name) => {
+      if (name === event) {
+        if (event.listenerCount(event) === 0) {
+          from.off(event, onevent)
+        }
+      }
+    })
+
+  function onevent (...args) {
+    to.emit(event, ...args)
+  }
+}
+
+forwardEvent('uncaughtException')
+forwardEvent('unhandledRejection')
+forwardEvent('beforeExit')
+forwardEvent('exit')

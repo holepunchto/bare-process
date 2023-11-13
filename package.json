@@ -21,7 +21,7 @@
   "homepage": "https://github.com/holepunchto/bare-process#readme",
   "dependencies": {
     "bare-env": "^2.0.0",
-    "bare-events": "^1.3.0",
+    "bare-events": "^2.0.0",
     "bare-hrtime": "^2.0.0",
     "bare-os": "^2.0.0"
   },
