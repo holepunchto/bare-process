@@ -121,7 +121,7 @@ function forwardEvent (event, from = Bare, to = process) {
     })
     .on('removeListener', (name) => {
       if (name === event) {
-        if (event.listenerCount(event) === 0) {
+        if (to.listenerCount(event) === 0) {
           from.off(event, onevent)
         }
       }
