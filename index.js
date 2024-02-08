@@ -1,10 +1,25 @@
 /* global Bare */
 const EventEmitter = require('bare-events')
+const Pipe = require('bare-pipe')
+const tty = require('bare-tty')
 const os = require('bare-os')
 const env = require('bare-env')
 const hrtime = require('bare-hrtime')
 
 class Process extends EventEmitter {
+  constructor () {
+    super()
+
+    this.stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0)
+    this.stdin.fd = 0
+
+    this.stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1)
+    this.stdout.fd = 1
+
+    this.stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2)
+    this.stderr.fd = 2
+  }
+
   get platform () {
     return os.platform()
   }
