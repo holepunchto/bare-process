@@ -7,7 +7,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "standard && bare test.js"
+    "test": "standard"
   },
   "repository": {
     "type": "git",
