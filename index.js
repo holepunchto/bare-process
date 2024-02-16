@@ -10,14 +10,33 @@ class Process extends EventEmitter {
   constructor () {
     super()
 
-    this.stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0)
-    this.stdin.fd = 0
+    this._stdin = null
+    this._stdout = null
+    this._stderr = null
+  }
 
-    this.stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1)
-    this.stdout.fd = 1
+  get stdio () {
+    if (this._stdio === null) {
+      this._stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0)
+      this._stdin.fd = 0
+    }
+    return this._stdio
+  }
 
-    this.stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2)
-    this.stderr.fd = 2
+  get stdout () {
+    if (this._stdout === null) {
+      this._stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1)
+      this._stdout.fd = 1
+    }
+    return this._stdout
+  }
+
+  get stderr () {
+    if (this._stderr === null) {
+      this._stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2)
+      this._stderr.fd = 2
+    }
+    return this._stderr
   }
 
   get platform () {
