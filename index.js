@@ -15,12 +15,12 @@ class Process extends EventEmitter {
     this._stderr = null
   }
 
-  get stdio () {
-    if (this._stdio === null) {
+  get stdin () {
+    if (this._stdin === null) {
       this._stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0)
       this._stdin.fd = 0
     }
-    return this._stdio
+    return this._stdin
   }
 
   get stdout () {
