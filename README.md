@@ -8,10 +8,16 @@ npm i bare-process
 
 ## Usage
 
-``` js
+```js
 const process = require('bare-process')
 
 process.exit()
+```
+
+To make the `process` object globally available, do:
+
+```js
+global.process = require('bare-process')
 ```
 
 ## License
