@@ -25,7 +25,11 @@ class Process extends EventEmitter {
       'resume'
     ])
 
-    EventEmitter.forward(new Signal.Emitter(), this, [
+    const signals = new Signal.Emitter()
+
+    signals.unref()
+
+    EventEmitter.forward(signals, this, [
       'SIGTERM',
       'SIGINT',
       'SIGPIPE',
