@@ -1,42 +1,62 @@
 /* global Bare */
 const EventEmitter = require('bare-events')
 const Pipe = require('bare-pipe')
+const Signal = require('bare-signals')
 const tty = require('bare-tty')
 const os = require('bare-os')
 const env = require('bare-env')
 const hrtime = require('bare-hrtime')
 
+let stdin = null
+let stdout = null
+let stderr = null
+
 class Process extends EventEmitter {
   constructor () {
     super()
 
-    this._stdin = null
-    this._stdout = null
-    this._stderr = null
+    EventEmitter.forward(Bare, this, [
+      'uncaughtException',
+      'unhandledRejection',
+      'beforeExit',
+      'exit',
+      'suspend',
+      'idle',
+      'resume'
+    ])
+
+    EventEmitter.forward(new Signal.Emitter(), this, [
+      'SIGTERM',
+      'SIGINT',
+      'SIGPIPE',
+      'SIGHUP',
+      'SIGBREAK',
+      'SIGWINCH'
+    ])
   }
 
   get stdin () {
-    if (this._stdin === null) {
-      this._stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0)
-      this._stdin.fd = 0
+    if (stdin === null) {
+      stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0)
+      stdin.fd = 0
     }
-    return this._stdin
+    return stdin
   }
 
   get stdout () {
-    if (this._stdout === null) {
-      this._stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1)
-      this._stdout.fd = 1
+    if (stdout === null) {
+      stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1)
+      stdout.fd = 1
     }
-    return this._stdout
+    return stdout
   }
 
   get stderr () {
-    if (this._stderr === null) {
-      this._stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2)
-      this._stderr.fd = 2
+    if (stderr === null) {
+      stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2)
+      stderr.fd = 2
     }
-    return this._stderr
+    return stderr
   }
 
   get platform () {
@@ -142,34 +162,4 @@ class Process extends EventEmitter {
   }
 }
 
-const process = module.exports = new Process()
-
-function forwardEvent (event, from = Bare, to = process) {
-  to
-    .on('newListener', (name) => {
-      if (name === event) {
-        if (to.listenerCount(event) === 0) {
-          from.on(event, onevent)
-        }
-      }
-    })
-    .on('removeListener', (name) => {
-      if (name === event) {
-        if (to.listenerCount(event) === 0) {
-          from.off(event, onevent)
-        }
-      }
-    })
-
-  function onevent (...args) {
-    to.emit(event, ...args)
-  }
-}
-
-forwardEvent('uncaughtException')
-forwardEvent('unhandledRejection')
-forwardEvent('beforeExit')
-forwardEvent('exit')
-forwardEvent('suspend')
-forwardEvent('idle')
-forwardEvent('resume')
+module.exports = new Process()
