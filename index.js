@@ -147,6 +147,10 @@ class Process extends EventEmitter {
     return os.resourceUsage()
   }
 
+  memoryUsage () {
+    return os.memoryUsage()
+  }
+
   nextTick (cb, ...args) {
     queueMicrotask(cb.bind(null, ...args))
   }
