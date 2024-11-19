@@ -4,7 +4,8 @@
   "description": "Node.js-compatible process control for Bare",
   "exports": {
     ".": "./index.js",
-    "./package": "./package.json"
+    "./package": "./package.json",
+    "./global": "./global.js"
   },
   "files": [
     "index.js"

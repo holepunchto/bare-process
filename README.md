@@ -17,7 +17,7 @@ process.exit()
 To make the `process` object globally available, do:
 
 ```js
-global.process = require('bare-process')
+require('bare-process/global')
 ```
 
 ## License
