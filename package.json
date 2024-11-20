@@ -8,7 +8,8 @@
     "./global": "./global.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "global.js"
   ],
   "scripts": {
     "test": "standard"
