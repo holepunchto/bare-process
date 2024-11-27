@@ -12,7 +12,7 @@ let stdout = null
 let stderr = null
 
 class Process extends EventEmitter {
-  constructor () {
+  constructor() {
     super()
 
     EventEmitter.forward(Bare, this, [
@@ -39,7 +39,7 @@ class Process extends EventEmitter {
     ])
   }
 
-  get stdin () {
+  get stdin() {
     if (stdin === null) {
       stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0)
       stdin.fd = 0
@@ -47,7 +47,7 @@ class Process extends EventEmitter {
     return stdin
   }
 
-  get stdout () {
+  get stdout() {
     if (stdout === null) {
       stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1)
       stdout.fd = 1
@@ -55,7 +55,7 @@ class Process extends EventEmitter {
     return stdout
   }
 
-  get stderr () {
+  get stderr() {
     if (stderr === null) {
       stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2)
       stderr.fd = 2
@@ -63,99 +63,99 @@ class Process extends EventEmitter {
     return stderr
   }
 
-  get platform () {
+  get platform() {
     return os.platform()
   }
 
-  get arch () {
+  get arch() {
     return os.arch()
   }
 
-  get title () {
+  get title() {
     return os.getProcessTitle()
   }
 
-  set title (title) {
+  set title(title) {
     os.setProcessTitle(title)
   }
 
-  get pid () {
+  get pid() {
     return os.pid()
   }
 
-  get ppid () {
+  get ppid() {
     return os.ppid()
   }
 
-  get argv () {
+  get argv() {
     return Bare.argv
   }
 
-  get execPath () {
+  get execPath() {
     return os.execPath()
   }
 
-  get exitCode () {
+  get exitCode() {
     return Bare.exitCode
   }
 
-  set exitCode (code) {
+  set exitCode(code) {
     Bare.exitCode = code
   }
 
-  get version () {
+  get version() {
     return Bare.version
   }
 
-  get versions () {
+  get versions() {
     return Bare.versions
   }
 
-  get env () {
+  get env() {
     return env
   }
 
-  get hrtime () {
+  get hrtime() {
     return hrtime
   }
 
-  exit (code) {
+  exit(code) {
     Bare.exit(code)
   }
 
-  suspend () {
+  suspend() {
     Bare.suspend()
   }
 
-  resume () {
+  resume() {
     Bare.resume()
   }
 
-  cwd () {
+  cwd() {
     return os.cwd()
   }
 
-  chdir (directory) {
+  chdir(directory) {
     os.chdir(directory)
   }
 
-  kill (pid, signal) {
+  kill(pid, signal) {
     os.kill(pid, signal)
   }
 
-  resourceUsage () {
+  resourceUsage() {
     return os.resourceUsage()
   }
 
-  memoryUsage () {
+  memoryUsage() {
     return os.memoryUsage()
   }
 
-  nextTick (cb, ...args) {
+  nextTick(cb, ...args) {
     queueMicrotask(cb.bind(null, ...args))
   }
 
-  [Symbol.for('bare.inspect')] () {
+  [Symbol.for('bare.inspect')]() {
     return {
       __proto__: { constructor: Process },
 
