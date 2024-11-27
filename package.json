@@ -29,9 +29,9 @@
     "bare-events": "^2.3.1",
     "bare-hrtime": "^2.0.0",
     "bare-os": "^3.0.1",
-    "bare-pipe": "^3.1.0",
-    "bare-signals": "^3.0.0",
-    "bare-tty": "^4.0.0"
+    "bare-pipe": "^4.0.0",
+    "bare-signals": "^4.0.0",
+    "bare-tty": "^5.0.0"
   },
   "devDependencies": {
     "brittle": "^3.2.1",
