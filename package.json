@@ -3,13 +3,21 @@
   "version": "4.0.0",
   "description": "Node.js-compatible process control for Bare",
   "exports": {
-    ".": "./index.js",
-    "./package": "./package.json",
-    "./global": "./global.js"
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./global": {
+      "types": "./global.d.ts",
+      "default": "./global.js"
+    },
+    "./package": "./package.json"
   },
   "files": [
     "index.js",
-    "global.js"
+    "index.d.ts",
+    "global.js",
+    "global.d.ts"
   ],
   "scripts": {
     "test": "prettier . --check"
