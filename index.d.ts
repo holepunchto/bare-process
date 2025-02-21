@@ -10,7 +10,7 @@ interface ProcessEvents extends EventMap {
   idle: []
   resume: []
   suspend: [linger: number]
-  uncaughtException: [err: Error]
+  uncaughtException: [err: unknown]
   unhandledRejection: [reason: unknown, promise: Promise<unknown>]
 
   SIGBREAK: []
@@ -54,7 +54,7 @@ interface Process<M extends ProcessEvents = ProcessEvents>
   resourceUsage: typeof resourceUsage
   memoryUsage: typeof memoryUsage
 
-  nextTick<T extends unknown[]>(cb: (...args: T) => unknown, ...args: T[]): void
+  nextTick<T extends unknown[]>(cb: (...args: T) => unknown, ...args: T): void
 }
 
 declare let process: Process
