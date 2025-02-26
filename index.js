@@ -143,6 +143,14 @@ class Process extends EventEmitter {
     os.kill(pid, signal)
   }
 
+  cpuUsage(previous) {
+    return os.cpuUsage(previous)
+  }
+
+  threadCpuUsage(previous) {
+    return os.threadCpuUsage(previous)
+  }
+
   resourceUsage() {
     return os.resourceUsage()
   }
