@@ -1,5 +1,12 @@
 import EventEmitter, { EventMap } from 'bare-events'
-import { platform, arch, resourceUsage, memoryUsage } from 'bare-os'
+import {
+  platform,
+  arch,
+  cpuUsage,
+  threadCpuUsage,
+  resourceUsage,
+  memoryUsage
+} from 'bare-os'
 import { ReadStream } from 'bare-tty'
 import Pipe from 'bare-pipe'
 import hrtime from 'bare-hrtime'
@@ -51,6 +58,8 @@ interface Process<M extends ProcessEvents = ProcessEvents>
 
   kill(pid: number, signal?: string | number): void
 
+  cpuUsage: typeof cpuUsage
+  threadCpuUsage: typeof threadCpuUsage
   resourceUsage: typeof resourceUsage
   memoryUsage: typeof memoryUsage
 
