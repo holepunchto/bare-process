@@ -58,6 +58,8 @@ interface Process<M extends ProcessEvents = ProcessEvents>
 
   kill(pid: number, signal?: string | number): void
 
+  uptime(): number
+
   cpuUsage: typeof cpuUsage
   threadCpuUsage: typeof threadCpuUsage
   resourceUsage: typeof resourceUsage
