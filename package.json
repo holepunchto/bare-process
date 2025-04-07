@@ -1,6 +1,6 @@
 {
   "name": "bare-process",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "description": "Node.js-compatible process control for Bare",
   "exports": {
     ".": {
