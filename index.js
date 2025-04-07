@@ -15,6 +15,8 @@ class Process extends EventEmitter {
   constructor() {
     super()
 
+    this._startTime = hrtime.bigint()
+
     EventEmitter.forward(Bare, this, [
       'uncaughtException',
       'unhandledRejection',
@@ -141,6 +143,10 @@ class Process extends EventEmitter {
 
   kill(pid, signal) {
     os.kill(pid, signal)
+  }
+
+  uptime() {
+    return Number(hrtime.bigint() - this._startTime) / 1e9
   }
 
   cpuUsage(previous) {

@@ -20,7 +20,7 @@
     "global.d.ts"
   ],
   "scripts": {
-    "test": "prettier . --check"
+    "test": "prettier . --check && bare test.js"
   },
   "repository": {
     "type": "git",
