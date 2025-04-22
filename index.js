@@ -1,4 +1,3 @@
-/* global Bare */
 const EventEmitter = require('bare-events')
 const Pipe = require('bare-pipe')
 const Signal = require('bare-signals')
