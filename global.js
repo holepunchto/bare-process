@@ -1,1 +1,1 @@
-global.process = require('.')
+if (global.Bare) global.process = require('.')
