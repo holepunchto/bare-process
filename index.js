@@ -22,6 +22,7 @@ class Process extends EventEmitter {
       'beforeExit',
       'exit',
       'suspend',
+      'wakeup',
       'idle',
       'resume'
     ])
@@ -30,14 +31,7 @@ class Process extends EventEmitter {
 
     signals.unref()
 
-    EventEmitter.forward(signals, this, [
-      'SIGTERM',
-      'SIGINT',
-      'SIGPIPE',
-      'SIGHUP',
-      'SIGBREAK',
-      'SIGWINCH'
-    ])
+    EventEmitter.forward(signals, this, Object.values(os.constants.signals))
   }
 
   get stdin() {
