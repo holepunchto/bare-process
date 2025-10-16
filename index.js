@@ -31,7 +31,7 @@ class Process extends EventEmitter {
 
     signals.unref()
 
-    EventEmitter.forward(signals, this, Object.values(os.constants.signals))
+    EventEmitter.forward(signals, this, Object.keys(os.constants.signals))
   }
 
   get stdin() {
