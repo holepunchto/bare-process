@@ -1,12 +1,5 @@
 import EventEmitter, { EventMap } from 'bare-events'
-import {
-  platform,
-  arch,
-  cpuUsage,
-  threadCpuUsage,
-  resourceUsage,
-  memoryUsage
-} from 'bare-os'
+import { platform, arch, cpuUsage, threadCpuUsage, resourceUsage, memoryUsage } from 'bare-os'
 import { ReadStream } from 'bare-tty'
 import Pipe from 'bare-pipe'
 import hrtime from 'bare-hrtime'
@@ -28,8 +21,7 @@ interface ProcessEvents extends EventMap {
   SIGWINCH: []
 }
 
-interface Process<M extends ProcessEvents = ProcessEvents>
-  extends EventEmitter<M> {
+interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<M> {
   readonly stdin: ReadStream | Pipe
   readonly stdout: ReadStream | Pipe
   readonly stderr: ReadStream | Pipe

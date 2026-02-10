@@ -36,9 +36,7 @@ class Process extends EventEmitter {
 
   get stdin() {
     if (stdin === null) {
-      stdin = tty.isTTY(0)
-        ? new tty.ReadStream(0)
-        : new Pipe(0, { eagerOpen: false })
+      stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0, { eagerOpen: false })
       stdin.fd = 0
     }
 
@@ -47,9 +45,7 @@ class Process extends EventEmitter {
 
   get stdout() {
     if (stdout === null) {
-      stdout = tty.isTTY(1)
-        ? new tty.WriteStream(1)
-        : new Pipe(1, { eagerOpen: false })
+      stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1, { eagerOpen: false })
       stdout.fd = 1
     }
 
@@ -58,9 +54,7 @@ class Process extends EventEmitter {
 
   get stderr() {
     if (stderr === null) {
-      stderr = tty.isTTY(2)
-        ? new tty.WriteStream(2)
-        : new Pipe(2, { eagerOpen: false })
+      stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2, { eagerOpen: false })
       stderr.fd = 2
     }
 
