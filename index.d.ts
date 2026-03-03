@@ -1,3 +1,4 @@
+import abort from 'bare-abort'
 import EventEmitter, { EventMap } from 'bare-events'
 import { platform, arch, cpuUsage, threadCpuUsage, resourceUsage, memoryUsage } from 'bare-os'
 import { ReadStream } from 'bare-tty'
@@ -52,6 +53,7 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
 
   uptime(): number
 
+  abort: typeof abort
   cpuUsage: typeof cpuUsage
   threadCpuUsage: typeof threadCpuUsage
   resourceUsage: typeof resourceUsage
