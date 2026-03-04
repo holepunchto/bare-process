@@ -1,3 +1,4 @@
+const abort = require('bare-abort')
 const EventEmitter = require('bare-events')
 const Pipe = require('bare-pipe')
 const Signal = require('bare-signals')
@@ -115,6 +116,10 @@ class Process extends EventEmitter {
 
   get hrtime() {
     return hrtime
+  }
+
+  abort() {
+    abort()
   }
 
   exit(code) {
