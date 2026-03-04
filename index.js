@@ -157,6 +157,14 @@ class Process extends EventEmitter {
     return os.resourceUsage()
   }
 
+  availableMemory() {
+    return os.availableMemory()
+  }
+
+  constrainedMemory() {
+    return os.constrainedMemory()
+  }
+
   memoryUsage() {
     return os.memoryUsage()
   }

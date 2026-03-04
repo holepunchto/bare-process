@@ -1,5 +1,14 @@
 import EventEmitter, { EventMap } from 'bare-events'
-import { platform, arch, cpuUsage, threadCpuUsage, resourceUsage, memoryUsage } from 'bare-os'
+import {
+  arch,
+  availableMemory,
+  constrainedMemory,
+  cpuUsage,
+  memoryUsage,
+  platform,
+  resourceUsage,
+  threadCpuUsage
+} from 'bare-os'
 import { ReadStream } from 'bare-tty'
 import Pipe from 'bare-pipe'
 import hrtime from 'bare-hrtime'
@@ -55,6 +64,8 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   cpuUsage: typeof cpuUsage
   threadCpuUsage: typeof threadCpuUsage
   resourceUsage: typeof resourceUsage
+  availableMemory: typeof availableMemory
+  constrainedMemory: typeof constrainedMemory
   memoryUsage: typeof memoryUsage
 
   nextTick<T extends unknown[]>(cb: (...args: T) => unknown, ...args: T): void
