@@ -1,19 +1,19 @@
 const abort = require('bare-abort')
 const EventEmitter = require('bare-events')
-const Pipe = require('bare-pipe')
 const Signal = require('bare-signals')
 const tty = require('bare-tty')
+const fs = require('bare-fs')
 const os = require('bare-os')
 const env = require('bare-env')
 const hrtime = require('bare-hrtime')
 
-let stdin = null
-let stdout = null
-let stderr = null
-
 class Process extends EventEmitter {
   constructor() {
     super()
+
+    this._stdin = null
+    this._stdout = null
+    this._stderr = null
 
     this._startTime = hrtime.bigint()
 
@@ -36,30 +36,33 @@ class Process extends EventEmitter {
   }
 
   get stdin() {
-    if (stdin === null) {
-      stdin = tty.isTTY(0) ? new tty.ReadStream(0) : new Pipe(0, { eagerOpen: false })
-      stdin.fd = 0
+    if (this._stdin === null) {
+      this._stdin = tty.isTTY(0)
+        ? new tty.ReadStream(0)
+        : fs.createReadStream(null, { fd: 0, eagerOpen: false })
     }
 
-    return stdin
+    return this._stdin
   }
 
   get stdout() {
-    if (stdout === null) {
-      stdout = tty.isTTY(1) ? new tty.WriteStream(1) : new Pipe(1, { eagerOpen: false })
-      stdout.fd = 1
+    if (this._stdout === null) {
+      this._stdout = tty.isTTY(1)
+        ? new tty.WriteStream(1)
+        : fs.createWriteStream(null, { fd: 1, eagerOpen: false })
     }
 
-    return stdout
+    return this._stdout
   }
 
   get stderr() {
-    if (stderr === null) {
-      stderr = tty.isTTY(2) ? new tty.WriteStream(2) : new Pipe(2, { eagerOpen: false })
-      stderr.fd = 2
+    if (this._stderr === null) {
+      this._stderr = tty.isTTY(2)
+        ? new tty.WriteStream(2)
+        : fs.createWriteStream(null, { fd: 2, eagerOpen: false })
     }
 
-    return stderr
+    return this._stderr
   }
 
   get platform() {
