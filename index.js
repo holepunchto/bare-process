@@ -1,19 +1,14 @@
 const abort = require('bare-abort')
 const EventEmitter = require('bare-events')
 const Signal = require('bare-signals')
-const tty = require('bare-tty')
-const fs = require('bare-fs')
 const os = require('bare-os')
 const env = require('bare-env')
 const hrtime = require('bare-hrtime')
+const stdio = require('bare-stdio')
 
 class Process extends EventEmitter {
   constructor() {
     super()
-
-    this._stdin = null
-    this._stdout = null
-    this._stderr = null
 
     this._startTime = hrtime.bigint()
 
@@ -36,33 +31,15 @@ class Process extends EventEmitter {
   }
 
   get stdin() {
-    if (this._stdin === null) {
-      this._stdin = tty.isTTY(0)
-        ? new tty.ReadStream(0)
-        : fs.createReadStream(null, { fd: 0, eagerOpen: false })
-    }
-
-    return this._stdin
+    return stdio.in
   }
 
   get stdout() {
-    if (this._stdout === null) {
-      this._stdout = tty.isTTY(1)
-        ? new tty.WriteStream(1)
-        : fs.createWriteStream(null, { fd: 1, eagerOpen: false })
-    }
-
-    return this._stdout
+    return stdio.out
   }
 
   get stderr() {
-    if (this._stderr === null) {
-      this._stderr = tty.isTTY(2)
-        ? new tty.WriteStream(2)
-        : fs.createWriteStream(null, { fd: 2, eagerOpen: false })
-    }
-
-    return this._stderr
+    return stdio.err
   }
 
   get platform() {

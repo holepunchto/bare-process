@@ -36,11 +36,10 @@
     "bare-abort": "^2.0.13",
     "bare-env": "^3.0.0",
     "bare-events": "^2.3.1",
-    "bare-fs": "^4.5.6",
     "bare-hrtime": "^2.0.0",
     "bare-os": "^3.7.1",
     "bare-signals": "^4.0.0",
-    "bare-tty": "^5.0.0"
+    "bare-stdio": "^1.0.1"
   },
   "devDependencies": {
     "brittle": "^3.2.1",

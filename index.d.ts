@@ -10,9 +10,8 @@ import {
   resourceUsage,
   threadCpuUsage
 } from 'bare-os'
-import tty from 'bare-tty'
-import fs from 'bare-fs'
 import hrtime from 'bare-hrtime'
+import stdio from 'bare-stdio'
 
 interface ProcessEvents extends EventMap {
   beforeExit: [code: number]
@@ -32,9 +31,9 @@ interface ProcessEvents extends EventMap {
 }
 
 interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<M> {
-  readonly stdin: tty.ReadStream | fs.ReadStream
-  readonly stdout: tty.WriteStream | fs.WriteStream
-  readonly stderr: tty.WriteStream | fs.WriteStream
+  readonly stdin: typeof stdio.in
+  readonly stdout: typeof stdio.out
+  readonly stderr: typeof stdio.err
 
   readonly arch: ReturnType<typeof arch>
   readonly argv: string[]
