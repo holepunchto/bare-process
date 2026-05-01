@@ -5,6 +5,7 @@ const os = require('bare-os')
 const env = require('bare-env')
 const hrtime = require('bare-hrtime')
 const stdio = require('bare-stdio')
+const posix = require('bare-posix')
 
 class Process extends EventEmitter {
   constructor() {
@@ -152,6 +153,42 @@ class Process extends EventEmitter {
 
   memoryUsage() {
     return os.memoryUsage()
+  }
+
+  getgid() {
+    return posix.getgid()
+  }
+
+  setgid(id) {
+    return posix.setgid(id)
+  }
+
+  getegid() {
+    return posix.getegid()
+  }
+
+  setegid(id) {
+    return posix.setegid(id)
+  }
+
+  getuid() {
+    return posix.getuid()
+  }
+
+  setuid(id) {
+    return posix.setuid(id)
+  }
+
+  geteuid() {
+    return posix.geteuid()
+  }
+
+  seteuid(id) {
+    return posix.seteuid(id)
+  }
+
+  getgroups() {
+    return posix.getgroups()
   }
 
   nextTick(cb, ...args) {

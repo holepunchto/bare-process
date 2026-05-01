@@ -1,17 +1,9 @@
 import abort from 'bare-abort'
 import EventEmitter, { EventMap } from 'bare-events'
-import {
-  arch,
-  availableMemory,
-  constrainedMemory,
-  cpuUsage,
-  memoryUsage,
-  platform,
-  resourceUsage,
-  threadCpuUsage
-} from 'bare-os'
+import os from 'bare-os'
 import hrtime from 'bare-hrtime'
 import stdio from 'bare-stdio'
+import posix from 'bare-posix'
 
 interface ProcessEvents extends EventMap {
   beforeExit: [code: number]
@@ -35,13 +27,13 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   readonly stdout: typeof stdio.out
   readonly stderr: typeof stdio.err
 
-  readonly arch: ReturnType<typeof arch>
+  readonly arch: ReturnType<typeof os.arch>
   readonly argv: string[]
   readonly env: Record<string, string>
   readonly execPath: string
   readonly hrtime: typeof hrtime
   readonly pid: number
-  readonly platform: ReturnType<typeof platform>
+  readonly platform: ReturnType<typeof os.platform>
   readonly ppid: number
   readonly version: string
   readonly versions: Record<string, string>
@@ -62,12 +54,21 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   uptime(): number
 
   abort: typeof abort
-  cpuUsage: typeof cpuUsage
-  threadCpuUsage: typeof threadCpuUsage
-  resourceUsage: typeof resourceUsage
-  availableMemory: typeof availableMemory
-  constrainedMemory: typeof constrainedMemory
-  memoryUsage: typeof memoryUsage
+  cpuUsage: typeof os.cpuUsage
+  threadCpuUsage: typeof os.threadCpuUsage
+  resourceUsage: typeof os.resourceUsage
+  availableMemory: typeof os.availableMemory
+  constrainedMemory: typeof os.constrainedMemory
+  memoryUsage: typeof os.memoryUsage
+  getgid: typeof posix.getgid
+  setgid: typeof posix.setgid
+  getegid: typeof posix.getegid
+  setegid: typeof posix.setegid
+  getuid: typeof posix.getuid
+  setuid: typeof posix.setuid
+  geteuid: typeof posix.geteuid
+  seteuid: typeof posix.seteuid
+  getgroups: typeof posix.getgroups
 
   nextTick<T extends unknown[]>(cb: (...args: T) => unknown, ...args: T): void
 }
