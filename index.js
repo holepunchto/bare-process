@@ -71,6 +71,10 @@ class Process extends EventEmitter {
     return Bare.argv
   }
 
+  get execArgv() {
+    return []
+  }
+
   get execPath() {
     return os.execPath()
   }
