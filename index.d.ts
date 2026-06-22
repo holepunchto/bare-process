@@ -38,6 +38,7 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   readonly arch: ReturnType<typeof arch>
   readonly argv: string[]
   readonly env: Record<string, string>
+  readonly execArgv: string[]
   readonly execPath: string
   readonly hrtime: typeof hrtime
   readonly pid: number
