@@ -4,6 +4,9 @@ import process from '.'
 type Process = typeof process
 
 declare global {
-  /** The global `process` object, providing information about and control over the current Bare process. */
+  /**
+   * The global `process` object, providing information about and control over the current Bare
+   * process.
+   */
   const process: Process
 }

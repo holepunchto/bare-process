@@ -9,9 +9,14 @@ import posix from 'bare-posix'
 interface ProcessEvents extends EventMap {
   /** Emitted when the event loop empties and has no additional work scheduled. */
   beforeExit: [code: number]
-  /** Emitted when the process is about to exit, either from `process.exit()` or an empty event loop. */
+  /**
+   * Emitted when the process is about to exit, either from `process.exit()` or an empty event loop.
+   */
   exit: [code: number]
-  /** Emitted during suspension when no work remains and the event loop is about to block instead of exiting. */
+  /**
+   * Emitted during suspension when no work remains and the event loop is about to block instead of
+   * exiting.
+   */
   idle: []
   /** Emitted when the process resumes after suspension. */
   resume: []
@@ -57,7 +62,9 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   exitCode: number
   title: string
 
-  /** Emitted when the process is about to exit, either from `process.exit()` or an empty event loop. */
+  /**
+   * Emitted when the process is about to exit, either from `process.exit()` or an empty event loop.
+   */
   exit(code?: number): never
 
   /** Emitted when the process is suspended, so outstanding work can be stopped or deferred. */
@@ -92,7 +99,10 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   nextTick<T extends unknown[]>(cb: (...args: T) => unknown, ...args: T): void
 }
 
-/** The global `process` object, providing information about and control over the current Bare process. */
+/**
+ * The global `process` object, providing information about and control over the current Bare
+ * process.
+ */
 declare let process: Process
 
 declare namespace process {
