@@ -20,10 +20,10 @@ To make the `process` object globally available, do:
 require('bare-process/global')
 ```
 
-## License
-
-Apache-2.0
-
 ## API
 
 See the [`bare-process` reference](https://docs.pears.com/reference/bare/modules/bare-process).
+
+## License
+
+Apache-2.0
