@@ -5,23 +5,43 @@ import hrtime from 'bare-hrtime'
 import stdio from 'bare-stdio'
 import posix from 'bare-posix'
 
+/** Events emitted by `process`. */
 interface ProcessEvents extends EventMap {
+  /** Emitted when the event loop empties and has no additional work scheduled. */
   beforeExit: [code: number]
+  /**
+   * Emitted when the process is about to exit, either from `process.exit()` or an empty event loop.
+   */
   exit: [code: number]
+  /**
+   * Emitted during suspension when no work remains and the event loop is about to block instead of
+   * exiting.
+   */
   idle: []
+  /** Emitted when the process resumes after suspension. */
   resume: []
+  /** Emitted when the process is suspended, so outstanding work can be stopped or deferred. */
   suspend: [linger: number]
+  /** Emitted when a JavaScript exception bubbles all the way back to the event loop uncaught. */
   uncaughtException: [err: unknown]
+  /** Emitted when a promise is rejected with no rejection handler attached. */
   unhandledRejection: [reason: unknown, promise: Promise<unknown>]
 
+  /** Emitted when the process receives a `SIGBREAK` signal. */
   SIGBREAK: []
+  /** Emitted when the process receives a `SIGHUP` signal. */
   SIGHUP: []
+  /** Emitted when the process receives a `SIGINT` signal. */
   SIGINT: []
+  /** Emitted when the process receives a `SIGPIPE` signal. */
   SIGPIPE: []
+  /** Emitted when the process receives a `SIGTERM` signal. */
   SIGTERM: []
+  /** Emitted when the process receives a `SIGWINCH` signal. */
   SIGWINCH: []
 }
 
+/** Alias for the type of the global `process` object. */
 interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<M> {
   readonly stdin: typeof stdio.in
   readonly stdout: typeof stdio.out
@@ -42,9 +62,14 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   exitCode: number
   title: string
 
+  /**
+   * Emitted when the process is about to exit, either from `process.exit()` or an empty event loop.
+   */
   exit(code?: number): never
 
+  /** Emitted when the process is suspended, so outstanding work can be stopped or deferred. */
   suspend(): void
+  /** Emitted when the process resumes after suspension. */
   resume(): void
 
   cwd(): string
@@ -74,6 +99,10 @@ interface Process<M extends ProcessEvents = ProcessEvents> extends EventEmitter<
   nextTick<T extends unknown[]>(cb: (...args: T) => unknown, ...args: T): void
 }
 
+/**
+ * The global `process` object, providing information about and control over the current Bare
+ * process.
+ */
 declare let process: Process
 
 declare namespace process {
